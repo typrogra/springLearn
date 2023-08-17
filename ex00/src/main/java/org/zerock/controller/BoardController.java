@@ -33,8 +33,10 @@ public class BoardController {
   public String register(BoardVO board, RedirectAttributes rttr) {
     
     log.info("register: "+board);
+    
     service.register(board);
-    rttr.addFlashAttribute("result"+board.getBno());
+    
+    rttr.addFlashAttribute("result", board.getBno());
     return "redirect:/board/list";
     
   }
