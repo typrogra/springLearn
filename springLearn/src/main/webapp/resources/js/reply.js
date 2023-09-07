@@ -111,6 +111,22 @@ var replyService = (function(){
     }
     ;
 
+    function getList(param, callback, error) {
+        var bno = param.bno;
+        var page = param.page || 1;
+
+        $.getJSON("/replies/pages/"+bno+"/"+page+".json",
+        function(data) {
+            if(callback) {
+                callback(data.replyCnt, data.list);
+            }
+        }).fail(function(xhr, status, err) {
+            if(error) {
+                error();
+            }
+        });
+    }
+
     return {
         add:add,
         getList:getList,
