@@ -5,6 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+.uploadResult {
+	width:100%;
+	background-color: gray;
+}
+.uploadResult ul{
+  display:flex;
+  flex-flow:row;
+  justify-content: center;
+  align-items:center;
+}
+.uploadResult ul li {
+  list-style: none;
+  padding: 10px;
+}
+.uploadResult ul li img {
+  width:20px;
+}
+</style>
 </head>
 <body>
 
@@ -13,6 +32,7 @@
 </div>
 
 <button id='uploadBtn'>Upload</button>
+<div class='uploadResult'><ul></ul></div>
 
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -23,6 +43,25 @@ $(document).ready(function(){
 	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alx)$");
 	var maxSize = 5242880;
+	var cloneObj = $(".uploadDiv").clone();
+	var uploadResult = $(".uploadResult ul");
+	
+	function showUploadedFile(uploadResultArr) {
+		var str = "";
+		
+		$(uploadResultArr).each(function(i, obj) {
+			if (!obj.image) {
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+				str += "<li><a href='/download?fileName="+fileCallPath+"'><img src='/resources/img/attach.png'>"+obj.fileName+"</li>";
+			}else{
+//				str += "<li>" + obj.fileName + "</li>";
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				
+				str += "<li><img src='/display?fileName="+fileCallPath+"'></li>";
+			}
+		});
+		uploadResult.append(str);
+	}
 
 	function checkExtension(fileName, fileSize) {
 	  if(fileSize >= maxSize){
@@ -58,8 +97,11 @@ $(document).ready(function(){
 			,contentType: false
 			,data: formData
 			,type: 'POST'
+			,dataType: 'json'
 			,success: function(result){
-				alert("Uploaded");
+				console.log(result);
+				showUploadedFile(result);
+				$(".uploadDiv").html(cloneObj.html());
 			}
 		});
 	});
