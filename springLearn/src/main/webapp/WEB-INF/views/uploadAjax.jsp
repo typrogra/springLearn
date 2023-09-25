@@ -23,6 +23,30 @@
 .uploadResult ul li img {
   width:20px;
 }
+.uploadResult ul li span {
+  color:white;
+}
+.bigPictureWrapper {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  z-index: 100;
+  background:rgba(255,255,255,0.5);
+}
+.bigPicture {
+  posigion: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bigPicture img {
+  width:600px;
+}
 </style>
 </head>
 <body>
@@ -30,7 +54,10 @@
 <div class='uploadDiv'>
   <input type='file' name='uploadFile' multiple>
 </div>
-
+<div class='bigPictureWrapper'>
+  <div class='bigPicture'>
+  </div>
+</div>
 <button id='uploadBtn'>Upload</button>
 <div class='uploadResult'><ul></ul></div>
 
@@ -39,6 +66,14 @@
   crossorigin="anonymous">
 </script>
 <script>
+function showImage(fileCallPath) {
+    alert(fileCallPath);
+    $(".bigPictureWrapper").css("display","flex").show();
+    $(".bigPicture")
+    .html("<img src='/display?fileName="+encodeURI(fileCallPath)+"'>")
+    .animate({width:'100%', height:'100%'}, 1000);
+  }
+  
 $(document).ready(function(){
 	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alx)$");
@@ -52,12 +87,14 @@ $(document).ready(function(){
 		$(uploadResultArr).each(function(i, obj) {
 			if (!obj.image) {
 				var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
-				str += "<li><a href='/download?fileName="+fileCallPath+"'><img src='/resources/img/attach.png'>"+obj.fileName+"</li>";
+				str += "<li><a href='/download?fileName="+fileCallPath+"'><img src='/resources/img/attach.png'>"+obj.fileName+"</a></li>";
 			}else{
 //				str += "<li>" + obj.fileName + "</li>";
 				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				var originPath = obj.uploadPath+"\\"+obj.uuid+"_"+obj.fileName;
+				originPath = obj.uploadPath.replace(new RegExp(/\\/g),"/");
 				
-				str += "<li><img src='/display?fileName="+fileCallPath+"'></li>";
+				str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\"><img src='/display?fileName="+fileCallPath+"'></a></li>";
 			}
 		});
 		uploadResult.append(str);
