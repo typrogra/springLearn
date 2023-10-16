@@ -48,9 +48,15 @@ public class BoardController {
     
     log.info("register: "+board);
     
-    service.register(board);
+    if (board.getAttachList() != null) {
+      board.getAttachList().forEach(attach -> log.info(attach));
+    }
     
-    rttr.addFlashAttribute("result", board.getBno());
+    log.info("=================================");
+    
+    // service.register(board);
+    
+    // rttr.addFlashAttribute("result", board.getBno());
     return "redirect:/board/list";
     
   }
