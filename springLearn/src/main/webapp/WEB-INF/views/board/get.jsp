@@ -111,7 +111,10 @@
   </div>
   <!-- ./ end row -->
 </div>
-
+<div class='bigPictureWrapper'>
+  <div class='bigPicture'>
+  </div>
+</div>
 
 
 <!-- Modal -->
@@ -158,6 +161,13 @@
 <script>
 
 $(document).ready(function () {
+	
+	(function(){
+		var bno = '<c:out value="${board.bno}"/>';
+		$.getJSON("/board/getAttachList", {bno: bno}, function(arr){
+			console.log(arr);
+		});
+	})();
   
   var bnoValue = '<c:out value="${board.bno}"/>';
   var replyUL = $(".chat");
