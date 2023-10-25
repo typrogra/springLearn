@@ -3,7 +3,7 @@
 @Log4j //Logger 변수 생성.
 public class SampleTests {
   
-  @Setter(onMethod_ = { @Autowired}) //@Setter 어노테이션을 선언하여 setter 객체를 생성하고 생성된 객체에 @Autowired  어노테이션은 선언하여 생성자(new Restaurant) 선언 없이 객체를 생성한다.
+  @Setter(onMethod_ = { @Autowired}) //@Setter(Lombok lib) 어노테이션을 선언하여 setter 객체를 생성한다. onMethod 속성에 @Autowired 어노테이션은 선언하여 별도의 생성자(new Restaurant) 선언 없이 객체를 생성한다.
   private Restaurant restaurant;
   
   @Test //테스트 대상을 표시
