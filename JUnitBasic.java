@@ -6,7 +6,7 @@ public class SampleTests {
   @Setter(onMethod_ = { @Autowired}) //@Setter(Lombok lib) 어노테이션을 선언하여 setter 객체를 생성한다. onMethod 속성에 @Autowired 어노테이션은 선언하여 별도의 생성자(new Restaurant) 선언 없이 객체를 생성한다.
   private Restaurant restaurant;
   
-  @Test //테스트 대상을 표시
+  @Test //테스트 대상을 표시. 이 어노테이션이 해당 메서드가 main 메서드 없이 실행할 수 있게 해준다.
   public void testExist() {
     assertNotNull(restaurant); //속성값으로 지정된 변수가 null이 아니어야 테스트가 성공한다는 것을 의미
     
