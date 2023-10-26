@@ -3,7 +3,7 @@
 @Data //@ToString, @EqualsAndHashCode, @Getter/setter, @RequiredArgsConstructor를 결합한 형태
 public class Restaurant {
   
-  @Setter(onMethod_ = @Autowired) //스프링 의존성 주입은 크게 1)생성자 주입(Autowired)과 2)Setter 주입을 사용. @Setter로 setXXX() 메서드를 생성하고 @Autowired로 스프링으로부터 자신이 필요한 객체를 주입
+  @Setter(onMethod_ = @Autowired) //스프링 의존성 주입은 크게 1)생성자 주입(Autowired)과 2)Setter 주입을 사용. @Setter로 setXXX() 메서드를 생성하고 @Autowired로 스프링으로부터 자신이 필요한 객체를 주입(Spring 4.3이후 @Autowired 없이 묵시적 자동 생성자 주입이 가능하다.
   private Chef chef;
 
 }
